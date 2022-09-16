@@ -2,7 +2,7 @@
   "name": "startup-nation-backend",
   "version": "0.1.0",
   "private": true,
-  "description": "Back-end layer of Stand-up Nation",
+  "description": "",
   "license": "UNLICENSED",
   "author": "Filip Pietruszyński <filippietruszynski@pm.me> (https://github.com/filippietruszynski)",
   "scripts": {
