@@ -4,7 +4,11 @@
   "private": true,
   "description": "",
   "license": "UNLICENSED",
-  "author": "Filip Pietruszyński <filippietruszynski@pm.me> (https://github.com/filippietruszynski)",
+  "author": {
+    "name": "Filip Pietruszyński",
+    "email": "filippietruszynski@pm.me",
+    "url": "https://github.com/filippietruszynski"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
