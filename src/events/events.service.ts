@@ -6,16 +6,16 @@ import { EventEntity } from './event.entity';
 
 @Injectable()
 export class EventsService {
-  private repository: Repository<EventEntity>;
+  private eventsRepository: Repository<EventEntity>;
 
   constructor(
-    @InjectRepository(EventEntity) repository: Repository<EventEntity>,
+    @InjectRepository(EventEntity) eventsRepository: Repository<EventEntity>,
   ) {
-    this.repository = repository;
+    this.eventsRepository = eventsRepository;
   }
 
   create(eventDto: CreateEventDto) {
-    const event = this.repository.create(eventDto);
-    return this.repository.save(event);
+    const event = this.eventsRepository.create(eventDto);
+    return this.eventsRepository.save(event);
   }
 }

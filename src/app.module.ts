@@ -5,8 +5,9 @@ import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './users/user.entity';
 import { EventEntity } from './events/event.entity';
+import { AuthModule } from './auth/auth.module';
+import { UserEntity } from './users/user.entity';
 
 @Module({
   imports: [
@@ -29,8 +30,9 @@ import { EventEntity } from './events/event.entity';
         };
       },
     }),
-    UsersModule,
+    AuthModule,
     EventsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
