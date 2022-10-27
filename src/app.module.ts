@@ -5,8 +5,8 @@ import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
-import { Event as Szot } from './events/event.entity';
+import { UserEntity } from './users/user.entity';
+import { EventEntity } from './events/event.entity';
 
 @Module({
   imports: [
@@ -16,16 +16,16 @@ import { Event as Szot } from './events/event.entity';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         return {
           type: 'postgres',
-          entities: [User, Szot],
-          database: config.get<string>('DB_NAME'),
-          host: config.get<string>('DB_HOST'),
-          port: config.get<number>('DB_PORT'),
-          username: config.get<string>('DB_USERNAME'),
-          password: config.get<string>('DB_PASSWORD'),
-          synchronize: config.get<boolean>('DB_SYNCHRONIZE'),
+          entities: [UserEntity, EventEntity],
+          database: configService.get<string>('DB_NAME'),
+          host: configService.get<string>('DB_HOST'),
+          port: configService.get<number>('DB_PORT'),
+          username: configService.get<string>('DB_USERNAME'),
+          password: configService.get<string>('DB_PASSWORD'),
+          synchronize: configService.get<boolean>('DB_SYNCHRONIZE'),
         };
       },
     }),

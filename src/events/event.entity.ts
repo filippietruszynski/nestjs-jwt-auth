@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { User } from '../users/user.entity';
+import { UserEntity } from '../users/user.entity';
 
 @Entity()
-export class Event {
+export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -10,6 +10,6 @@ export class Event {
   name: string;
 
   // User is being returned by function because it can't be directly accessed because of circular dependency with users entity (whatever it means)
-  @ManyToOne(() => User, (user) => user.events)
-  user: User;
+  @ManyToOne(() => UserEntity, (user) => user.events)
+  user: UserEntity;
 }

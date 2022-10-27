@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { Event } from '../events/event.entity';
+import { EventEntity } from '../events/event.entity';
 
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,8 +20,8 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Event, (event) => event.user)
-  events: Event[];
+  @OneToMany(() => EventEntity, (event) => event.user)
+  events: EventEntity[];
 
   @AfterInsert()
   logInsert() {
