@@ -25,7 +25,6 @@ interface JwtConfig {
   expirationTime: number;
 }
 
-// must be unified with envValidationSchema
 export interface Config {
   app: AppConfig;
   db: DbConfig;

@@ -1,7 +1,6 @@
 import * as Joi from 'joi';
-import { Environment } from './config.constants';
+import { Environment } from './types/config.types';
 
-// must be unified with Config interface
 export const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .required()
