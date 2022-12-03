@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { CreateEventDto } from './dtos/create-event.dto';
-import { EventDto } from './dtos/event.dto';
+import { Serialize } from 'src/interceptors';
+import { CreateEventDto, EventDto } from './dtos';
+import { EventsRoute } from './events.routes';
 import { EventsService } from './events.service';
 
-@Controller('events')
+@Controller(EventsRoute.Events)
 export class EventsController {
   private eventsService: EventsService;
 

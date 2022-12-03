@@ -7,10 +7,10 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { EventEntity } from '../events/event.entity';
+import { Event } from '../events/event.entity';
 
 @Entity()
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,8 +20,11 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => EventEntity, (event) => event.user)
-  events: EventEntity[];
+  @Column({ nullable: true, type: 'varchar' })
+  hashedRefreshToken: string | null;
+
+  @OneToMany(() => Event, (event) => event.user)
+  events: Event[];
 
   @AfterInsert()
   logInsert() {

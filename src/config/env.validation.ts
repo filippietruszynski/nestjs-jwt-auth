@@ -1,7 +1,6 @@
 import * as Joi from 'joi';
-import { Environment } from './config.constants';
+import { Environment } from './types/config.types';
 
-// must be unified with Config interface
 export const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .required()
@@ -14,6 +13,8 @@ export const envValidationSchema = Joi.object({
   DB_USERNAME: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_SYNCHRONIZE: Joi.boolean().required(),
-  JWT_SECRET: Joi.string().required(),
-  JWT_EXPIRATION_TIME: Joi.number().required(),
+  JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
+  JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.number().required(),
+  JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+  JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.number().required(),
 });

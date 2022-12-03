@@ -2,15 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateEventDto } from './dtos/create-event.dto';
-import { EventEntity } from './event.entity';
+import { Event } from './event.entity';
 
 @Injectable()
 export class EventsService {
-  private eventsRepository: Repository<EventEntity>;
+  private eventsRepository: Repository<Event>;
 
-  constructor(
-    @InjectRepository(EventEntity) eventsRepository: Repository<EventEntity>,
-  ) {
+  constructor(@InjectRepository(Event) eventsRepository: Repository<Event>) {
     this.eventsRepository = eventsRepository;
   }
 

@@ -21,11 +21,12 @@ interface DbConfig {
 }
 
 interface JwtConfig {
-  secret: string;
-  expirationTime: number;
+  accessTokenSecret: string;
+  accessTokenExpirationTime: number;
+  refreshTokenSecret: string;
+  refreshTokenExpirationTime: number;
 }
 
-// must be unified with envValidationSchema
 export interface Config {
   app: AppConfig;
   db: DbConfig;
