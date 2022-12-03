@@ -1,4 +1,4 @@
-import { Config } from './types/config.types';
+import { Config } from './types';
 
 export function config(): Config {
   const processEnv: NodeJS.ProcessEnv = process.env;
@@ -17,8 +17,16 @@ export function config(): Config {
       synchronize: <string>processEnv.DB_SYNCHRONIZE === 'true',
     },
     jwt: {
-      secret: <string>processEnv.JWT_SECRET,
-      expirationTime: parseInt(<string>processEnv.JWT_EXPIRATION_TIME, 10),
+      accessTokenSecret: <string>processEnv.JWT_ACCESS_TOKEN_SECRET,
+      accessTokenExpirationTime: parseInt(
+        <string>processEnv.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+        10,
+      ),
+      refreshTokenSecret: <string>processEnv.JWT_REFRESH_TOKEN_SECRET,
+      refreshTokenExpirationTime: parseInt(
+        <string>processEnv.JWT_REFRESH_TOKEN_EXPIRATION_TIME,
+        10,
+      ),
     },
   };
 }
