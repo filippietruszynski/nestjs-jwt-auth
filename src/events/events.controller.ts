@@ -4,7 +4,7 @@ import { CreateEventDto, EventDto } from './dtos';
 import { EventsRoute } from './events.routes';
 import { EventsService } from './events.service';
 
-@Controller(EventsRoute.Events)
+@Controller(EventsRoute.EVENTS)
 export class EventsController {
   private eventsService: EventsService;
 

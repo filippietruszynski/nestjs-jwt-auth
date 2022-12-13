@@ -1,7 +1,8 @@
 export enum AuthRoute {
-  Auth = 'auth',
-  LocalSignup = '/local/signup',
-  LocalSignin = '/local/signin',
-  Signout = '/signout',
-  Refresh = '/refresh',
+  AUTH = 'auth',
+  LOCAL_SIGNUP = '/local/signup',
+  LOCAL_SIGNIN = '/local/signin',
+  SIGNOUT = '/signout',
+  ME = '/me',
+  REFRESH_TOKENS = '/refresh-tokens',
 }

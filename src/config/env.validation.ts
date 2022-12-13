@@ -4,7 +4,7 @@ import { Environment } from './types/config.types';
 export const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .required()
-    .valid(Environment.Development, Environment.Production, Environment.Test),
+    .valid(Environment.DEVELOPMENT, Environment.PRODUCTION, Environment.TEST),
   APP_HOST: Joi.string().required(),
   APP_PORT: Joi.number().required(),
   DB_NAME: Joi.string().required(),

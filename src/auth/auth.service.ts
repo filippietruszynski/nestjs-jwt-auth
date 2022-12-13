@@ -23,17 +23,23 @@ export class AuthService {
     this.usersService = usersService;
   }
 
-  async signupLocal(email: string, password: string): Promise<Tokens> {
+  async signupLocal(
+    email: string,
+    password: string,
+  ): Promise<{ tokens: Tokens; email: string }> {
     const hashedPassword = await this.hashData(password);
     const user = await this.usersService.create(email, hashedPassword);
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateHashedRefreshToken(user.id, tokens.refresh_token);
 
-    return tokens;
+    return { tokens, email: user.email };
   }
 
-  async signinLocal(email: string, password: string): Promise<Tokens> {
+  async signinLocal(
+    email: string,
+    password: string,
+  ): Promise<{ tokens: Tokens; email: string }> {
     const user = await this.usersService.findOne({ email });
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
@@ -45,7 +51,7 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateHashedRefreshToken(user.id, tokens.refresh_token);
 
-    return tokens;
+    return { tokens, email: user.email };
   }
 
   async signout(userId: number): Promise<void> {
@@ -54,6 +60,10 @@ export class AuthService {
       { hashedRefreshToken: null },
       { hashedRefreshToken: Not(IsNull()) },
     );
+  }
+
+  me(userId: number): Promise<{ email: string }> {
+    return this.usersService.findOne({ id: userId });
   }
 
   async refreshTokens(userId: number, refreshToken: string): Promise<Tokens> {

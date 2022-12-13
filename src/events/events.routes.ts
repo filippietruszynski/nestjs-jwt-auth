@@ -1,3 +1,3 @@
 export enum EventsRoute {
-  Events = 'events',
+  EVENTS = 'events',
 }

@@ -5,15 +5,17 @@ import {
   HttpStatus,
   Post,
   UseGuards,
+  Res,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dtos';
 import { RefreshTokenGuard } from './guards';
 import { GetCurrentUser, GetCurrentUserId, Public } from 'src/auth/decorators';
-import { Tokens } from './types/auth.types';
 import { AuthRoute } from 'src/auth/auth.routes';
+import { Response } from 'express';
 
-@Controller(AuthRoute.Auth)
+@Controller(AuthRoute.AUTH)
 export class AuthController {
   private authService: AuthService;
 
@@ -21,38 +23,72 @@ export class AuthController {
     this.authService = authService;
   }
 
-  /* SIGNUP */
+  /* LOCAL SIGNUP */
   @Public()
-  @Post(AuthRoute.LocalSignup)
+  @Post(AuthRoute.LOCAL_SIGNUP)
   @HttpCode(HttpStatus.CREATED)
-  signupLocal(@Body() body: AuthDto): Promise<Tokens> {
-    return this.authService.signupLocal(body.email, body.password);
+  async signupLocal(
+    @Body() body: AuthDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { tokens, email } = await this.authService.signupLocal(
+      body.email,
+      body.password,
+    );
+
+    res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true });
+    return { access_token: tokens.access_token, email };
   }
 
-  /* SIGNIN */
+  /* LOCAL SIGNIN */
   @Public()
-  @Post(AuthRoute.LocalSignin)
+  @Post(AuthRoute.LOCAL_SIGNIN)
   @HttpCode(HttpStatus.OK)
-  signinLocal(@Body() body: AuthDto): Promise<Tokens> {
-    return this.authService.signinLocal(body.email, body.password);
+  async signinLocal(
+    @Body() body: AuthDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { tokens, email } = await this.authService.signinLocal(
+      body.email,
+      body.password,
+    );
+
+    res.cookie('refresh_token', tokens.refresh_token, { httpOnly: true });
+    return { access_token: tokens.access_token, email };
   }
 
   /* SIGNOUT */
-  @Post(AuthRoute.Signout)
+  @Post(AuthRoute.SIGNOUT)
   @HttpCode(HttpStatus.OK)
   signout(@GetCurrentUserId() userId: number) {
     return this.authService.signout(userId);
   }
 
-  /* REFRESH */
+  /* ME */
+  @Get(AuthRoute.ME)
+  @HttpCode(HttpStatus.OK)
+  me(@GetCurrentUserId() userId: number) {
+    return this.authService.me(userId);
+  }
+
+  /* REFRESH TOKENS */
   @Public()
   @UseGuards(RefreshTokenGuard)
-  @Post(AuthRoute.Refresh)
+  @Post(AuthRoute.REFRESH_TOKENS)
   @HttpCode(HttpStatus.OK)
-  refreshTokens(
+  async refreshTokens(
     @GetCurrentUserId() userId: number,
     @GetCurrentUser('refreshToken') refreshToken: string,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.refreshTokens(userId, refreshToken);
+    const refreshedTokens = await this.authService.refreshTokens(
+      userId,
+      refreshToken,
+    );
+
+    res.cookie('refresh_token', refreshedTokens.refresh_token, {
+      httpOnly: true,
+    });
+    return { access_token: refreshedTokens.access_token };
   }
 }
