@@ -1,5 +1,5 @@
 {
-  "name": "nest-jwt-auth",
+  "name": "nestjs-jwt-auth",
   "version": "0.1.0",
   "private": true,
   "description": "A NestJS application implementing JWT authentication with refresh token functionality.",
