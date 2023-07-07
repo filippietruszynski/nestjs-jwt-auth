@@ -1,9 +1,9 @@
 {
-  "name": "startup-nation-backend",
+  "name": "nest-jwt-auth",
   "version": "0.1.0",
   "private": true,
-  "description": "",
-  "license": "UNLICENSED",
+  "description": "A NestJS application implementing JWT authentication with refresh token functionality.",
+  "license": "MIT",
   "author": {
     "name": "Filip Pietruszyński",
     "email": "filippietruszynski@pm.me",
