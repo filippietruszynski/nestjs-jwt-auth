@@ -16,7 +16,6 @@ import { Config, config, envValidationSchema } from './config';
     EventsModule,
     UsersModule,
     ConfigModule.forRoot({
-      envFilePath: `.env.${process.env.NODE_ENV}`,
       validationSchema: envValidationSchema,
       load: [config],
       isGlobal: true,
