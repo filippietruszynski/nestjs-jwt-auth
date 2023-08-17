@@ -5,9 +5,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
 } from 'typeorm';
-import { Event } from '../events/event.entity';
 
 @Entity()
 export class User {
@@ -22,9 +20,6 @@ export class User {
 
   @Column({ nullable: true, type: 'varchar' })
   hashedRefreshToken: string | null;
-
-  @OneToMany(() => Event, (event) => event.user)
-  events: Event[];
 
   @AfterInsert()
   logInsert() {

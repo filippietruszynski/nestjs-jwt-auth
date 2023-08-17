@@ -4,8 +4,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { AccessTokenGuard } from './auth/guards';
-import { EventsModule } from './events/events.module';
-import { Event } from './events/event.entity';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { Config, config, envValidationSchema } from './config';
@@ -13,7 +11,6 @@ import { Config, config, envValidationSchema } from './config';
 @Module({
   imports: [
     AuthModule,
-    EventsModule,
     UsersModule,
     ConfigModule.forRoot({
       validationSchema: envValidationSchema,
@@ -25,7 +22,7 @@ import { Config, config, envValidationSchema } from './config';
       useFactory: (configService: ConfigService<Config>) => {
         return {
           type: 'postgres',
-          entities: [User, Event],
+          entities: [User],
           db: configService.get('db.name', { infer: true }),
           host: configService.get('db.host', { infer: true }),
           port: configService.get('db.port', { infer: true }),
